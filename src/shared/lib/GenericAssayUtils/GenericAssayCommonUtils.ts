@@ -397,3 +397,22 @@ export function getSortedGenericAssayTabSpecs(
 
     return _.sortBy(genericAssayTabSpecs, specs => specs.linkText);
 }
+
+export function getSortedGenericAssayAllTabSpecs(
+    genericAssayAllEnrichmentProfilesGroupedByGenericAssayType: {
+        [key: string]: MolecularProfile[];
+    } = {}
+): { genericAssayType: string; linkText: string }[] {
+    const genericAssayAllTabSpecs: {
+        genericAssayType: string;
+        linkText: string;
+    }[] = _.keys(
+        genericAssayAllEnrichmentProfilesGroupedByGenericAssayType
+    ).map(genericAssayType => ({
+        genericAssayType,
+        linkText: deriveDisplayTextFromGenericAssayType(genericAssayType),
+    }));
+
+    console.log(genericAssayAllTabSpecs);
+    return _.sortBy(genericAssayAllTabSpecs, specs => specs.linkText);
+}
