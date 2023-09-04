@@ -413,6 +413,5 @@ export function getSortedGenericAssayAllTabSpecs(
         linkText: deriveDisplayTextFromGenericAssayType(genericAssayType),
     }));
 
-    console.log(genericAssayAllTabSpecs);
     return _.sortBy(genericAssayAllTabSpecs, specs => specs.linkText);
 }

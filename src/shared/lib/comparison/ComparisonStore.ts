@@ -112,6 +112,7 @@ import { AlterationEnrichmentRow } from 'shared/model/AlterationEnrichmentRow';
 import AnalysisStore from './AnalysisStore';
 import { AnnotatedMutation } from 'shared/model/AnnotatedMutation';
 import { compileMutations } from './AnalysisStoreUtils';
+import { FeatureFlagEnum } from 'shared/featureFlags';
 
 export enum OverlapStrategy {
     INCLUDE = 'Include',
@@ -180,7 +181,6 @@ export default abstract class ComparisonStore extends AnalysisStore
                         GroupComparisonTab.GENERIC_ASSAY_PREFIX
                     ) || this.showGenericAssayTab
                 );
-                console.log(this.showGenericAssayTab);
                 this.tabHasBeenShown.set(
                     GroupComparisonTab.GENERIC_ASSAY_BINARY_PREFIX,
                     !!this.tabHasBeenShown.get(
@@ -2015,14 +2015,6 @@ export default abstract class ComparisonStore extends AnalysisStore
                                     genericAssayEnrichmentDataRequestGroups.length >
                                         1
                                 ) {
-                                    console.log(
-                                        internalClient.fetchGenericAssayBinaryDataEnrichmentInMultipleMolecularProfilesUsingPOST(
-                                            {
-                                                enrichmentType: 'SAMPLE',
-                                                groups: genericAssayEnrichmentDataRequestGroups,
-                                            }
-                                        )
-                                    );
                                     return internalClient.fetchGenericAssayBinaryDataEnrichmentInMultipleMolecularProfilesUsingPOST(
                                         {
                                             enrichmentType: 'SAMPLE',
@@ -2260,7 +2252,10 @@ export default abstract class ComparisonStore extends AnalysisStore
                 this
                     .genericAssayBinaryEnrichmentProfilesGroupedByGenericAssayType
                     .result!
-            ) > 0
+            ) > 0 &&
+            this.appStore.featureFlagStore.has(
+                FeatureFlagEnum.LEFT_TRUNCATION_ADJUSTMENT
+            )
         );
     }
 
@@ -2273,7 +2268,10 @@ export default abstract class ComparisonStore extends AnalysisStore
                 this
                     .genericAssayCategoricalEnrichmentProfilesGroupedByGenericAssayType
                     .result!
-            ) > 0
+            ) > 0 &&
+            this.appStore.featureFlagStore.has(
+                FeatureFlagEnum.LEFT_TRUNCATION_ADJUSTMENT
+            )
         );
     }
 

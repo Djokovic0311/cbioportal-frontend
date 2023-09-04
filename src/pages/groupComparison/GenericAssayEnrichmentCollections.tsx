@@ -168,7 +168,7 @@ export default class GenericAssayEnrichmentCollections extends React.Component<
                 this.isCategorical = false;
                 this.isNumerical = true;
             }
-            // const selectedProfile = profileList[0];
+
             return (
                 <div data-test="GroupComparisonGenericAssayEnrichments">
                     <EnrichmentsDataSetDropdown

@@ -1599,32 +1599,38 @@ export function getGaBinarydataListOptions(
     );
 
     let dataSortedByAvgFrequency = _.clone(dataWithOptionName).sort(function(
-        kv1,
-        kv2
+        dataItem1,
+        dataItem2
     ) {
-        const t1 =
-            _.sumBy(_.values(kv1.groupsSet), count => count.alteredPercentage) /
-            _.keys(kv1.groupsSet).length;
-        const t2 =
-            _.sumBy(_.values(kv2.groupsSet), count => count.alteredPercentage) /
-            _.keys(kv2.groupsSet).length;
-        return t2 - t1;
+        const averageAlteredPercentage1 =
+            _.sumBy(
+                _.values(dataItem1.groupsSet),
+                group => group.alteredPercentage
+            ) / _.keys(dataItem1.groupsSet).length;
+
+        const averageAlteredPercentage2 =
+            _.sumBy(
+                _.values(dataItem2.groupsSet),
+                group => group.alteredPercentage
+            ) / _.keys(dataItem2.groupsSet).length;
+
+        return averageAlteredPercentage2 - averageAlteredPercentage1;
     });
 
     let dataSortedBypValue = _.clone(dataWithOptionName).sort(function(
-        kv1,
-        kv2
+        dataItem1,
+        dataItem2
     ) {
-        if (kv1.pValue !== undefined && kv2.pValue !== undefined) {
+        if (dataItem1.pValue !== undefined && dataItem2.pValue !== undefined) {
             return 0;
         }
-        if (kv1.pValue !== undefined) {
+        if (dataItem1.pValue !== undefined) {
             return 1;
         }
-        if (kv2.pValue !== undefined) {
+        if (dataItem2.pValue !== undefined) {
             return -1;
         }
-        return Number(kv1.pValue) - Number(kv2.pValue);
+        return Number(dataItem1.pValue) - Number(dataItem2.pValue);
     });
 
     return [

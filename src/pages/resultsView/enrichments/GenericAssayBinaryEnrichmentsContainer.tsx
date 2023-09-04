@@ -460,6 +460,7 @@ export default class GenericAssayBinaryEnrichmentsContainer extends React.Compon
                             selectedGenesSet={this.selectedEntitiesSet}
                             onSelection={this.onSelection}
                             onSelectionCleared={this.onSelectionCleared}
+                            yAxisLablePrefix="Frequency"
                         />
                     )}
                     <div style={{ maxWidth: this.entityPlotMaxWidth }}>
