@@ -107,7 +107,7 @@ export default class MiniFrequencyScatterChart extends React.Component<
     @computed get yLabel() {
         const prefix = this.props.yAxisLablePrefix || 'Altered Frequency';
         return `${prefix} in ${truncateWithEllipsis(
-            this.props.xGroupName,
+            this.props.yGroupName,
             this.maxLabelWidth,
             'Arial',
             '13px'
